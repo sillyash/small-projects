@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+* {
+    font-family: "Gill Sans", sans-serif;
+    text-align: center;
+}
+
+#box {
+    width: 25rem;
+    height: 15rem;
+    align-self: center;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+
+    background-color: white;
+    transition: all 1s;
+}
+
+#color {
+    color: black;
+    transition: all 1s;
+}
