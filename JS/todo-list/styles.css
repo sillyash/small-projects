@@ -19,6 +19,10 @@ p {
 	font-weight: 600;
 }
 
+#userInput {
+    height: 20px;
+}
+
 #first {
 	margin-top: 10px;
 	color: #FFCD5D;

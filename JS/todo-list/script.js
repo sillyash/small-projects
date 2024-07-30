@@ -3,13 +3,16 @@ var input = document.getElementById("userInput");
 var ul = document.querySelector("ul");
 var item = document.getElementsByTagName("li");
 
+
 function inputLength(){
 	return input.value.length;
 } 
 
+
 function listLength(){
 	return item.length;
 }
+
 
 function createListElement() {
 	//START STRIKETHROUGH
@@ -22,7 +25,7 @@ function createListElement() {
 
 	// END ADD DELETE BUTTON
 
-	//ADD CLASS DELETE (DISPLAY: NONE)
+	//ADD CLASS DE  LETE (DISPLAY: NONE)
 	function deleteListItem(){
 	}
 	//END ADD CLASS DELETE
@@ -32,9 +35,14 @@ function createListElement() {
 function addListAfterClick(){
 }
 
+
 function addListAfterKeypress(event) {
+    if (inputLength() > 0 && event.which ===13) { //this now looks to see if you hit "enter"/"return"
+		//the 13 is the enter key's keycode, this could also be display by event.keyCode === 13
+		createListElement();
+	} 
 }
 
 
-enterButton.addEventListener();
-input.addEventListener();
+enterButton.addEventListener("click",addListAfterClick);
+input.addEventListener("keypress", addListAfterKeypress);
