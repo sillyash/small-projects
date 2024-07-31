@@ -1,48 +1,65 @@
-var enterButton = document.getElementById("enter");
-var input = document.getElementById("userInput");
-var ul = document.querySelector("ul");
-var item = document.getElementsByTagName("li");
+let enterButton = document.getElementById("enter");
+let input = document.getElementById("userInput");
+let ul = document.querySelector("ul");
+let item = document.getElementsByTagName("li");
 
-
-function inputLength(){
-	return input.value.length;
-} 
-
+function appendHtml(el, str) {
+    var div = document.createElement('div');
+    div.innerHTML = str;
+    while (div.children.length > 0) {
+      el.appendChild(div.children[0]);
+    }
+}
 
 function listLength(){
 	return item.length;
 }
 
+function inputIsEmpty() {
+    return input.value === null || input.value.match(/^ *$/) !== null;
+}
 
 function createListElement() {
-	//START STRIKETHROUGH
-	// because it's in the function, it only adds it for new items
+    let li = document.createElement("li");
+    
+    let html_checkbox = '<label class="container"><input type="checkbox"><div class="checkmark"></div></label>';
+    appendHtml(li, html_checkbox);
+    let checkbox = li.firstChild.firstChild;
+    
+    let text = document.createTextNode(input.value);
+    input.value = "";
+
+    let textElem = document.createElement("p");
+    textElem.appendChild(text);
+    
+    li.appendChild(textElem);
+    ul.appendChild(li);
+
+    let btnDel = document.createElement("button");
+    btnDel.append("X");
+    li.appendChild(btnDel);
+
 	function crossOut() {
+        li.classList.toggle("done");
 	}
-	//END STRIKETHROUGH
 
-	// START ADD DELETE BUTTON
-
-	// END ADD DELETE BUTTON
-
-	//ADD CLASS DE  LETE (DISPLAY: NONE)
-	function deleteListItem(){
+	function deleteListItem() {
+        ul.removeChild(li);
 	}
-	//END ADD CLASS DELETE
+
+    btnDel.addEventListener("click", deleteListItem);
+    checkbox.addEventListener("click", crossOut);
 }
 
-
-function addListAfterClick(){
+function addListAfterClick() {
+    if (inputIsEmpty()) return;
+    createListElement();
 }
-
 
 function addListAfterKeypress(event) {
-    if (inputLength() > 0 && event.which ===13) { //this now looks to see if you hit "enter"/"return"
-		//the 13 is the enter key's keycode, this could also be display by event.keyCode === 13
-		createListElement();
-	} 
+    if (inputIsEmpty()) return;
+    if (event.code == 'Enter') createListElement();
 }
 
-
 enterButton.addEventListener("click",addListAfterClick);
-input.addEventListener("keypress", addListAfterKeypress);
+input.addEventListener("keydown", addListAfterKeypress);
